@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  global-mongodb:
+    image: mongo
+    restart: always
+    networks:
+      - global-mongo-network
+    ports:
+      - 27017:27017
+    env_file:
+      - mongodb.env
+
+  global-mongo-express:
+    image: mongo-express
+    restart: always
+    networks:
+      - global-mongo-network
+    ports:
+      - 8081:8081
+    depends_on:
+      - global-mongodb
+    env_file:
+      - mongoexpress.env
+
+
+networks:
+  global-mongo-network:
